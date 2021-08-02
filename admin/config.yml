@@ -1,0 +1,1085 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: journal
+    label: Posts
+    folder: cms/journal
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Post body
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_author
+        label: Author
+        widget: relation
+        required: false
+        collection: team
+        value_field: cms/team/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: ''
+        name: f_short-description
+        label: Short description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_popular
+        label: Popular
+        widget: boolean
+        required: false
+      - hint: ''
+        name: f_hero-image
+        label: Hero image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_card-image
+        label: Card image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: journal
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[journal].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: team
+    label: Teams
+    folder: cms/team
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Medium bio
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_portrait-image
+        label: Portrait image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_hero-image
+        label: Hero image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_job-title
+        label: Job title
+        widget: string
+        required: false
+      - hint: ''
+        name: f_short-description
+        label: Job description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_email
+        label: Email
+        widget: string
+        required: false
+      - hint: ''
+        name: f_phone-number
+        label: Phone number
+        widget: string
+        required: false
+      - hint: ''
+        name: f_schedule-a-meeting-link
+        label: Schedule a meeting link
+        widget: string
+        required: false
+      - hint: ''
+        name: f_instagram
+        label: Instagram
+        widget: string
+        required: false
+      - hint: ''
+        name: f_linkedin
+        label: Linkedin
+        widget: string
+        required: false
+      - hint: ''
+        name: f_facebook
+        label: Facebook
+        widget: string
+        required: false
+      - hint: ''
+        name: f_youtube
+        label: Twitter
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: team
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[team].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: projects
+    label: Projects
+    folder: cms/projects
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Overview body
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_card-image
+        label: Card image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_short-description
+        label: Short description
+        widget: string
+        required: false
+      - hint: ''
+        name: f_hero-background
+        label: Hero background
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_type
+        label: Type
+        widget: select
+        required: false
+        options:
+          - label: Design
+            value: Design
+          - label: Strategy
+            value: Strategy
+          - label: Writing
+            value: Writing
+          - label: Marketing
+            value: Marketing
+      - hint: ''
+        name: f_featured
+        label: Featured
+        widget: boolean
+        required: false
+      - hint: ''
+        name: f_project-completed-on
+        label: Project completed on
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_live-project-link
+        label: Live project link
+        widget: string
+        required: false
+      - hint: ''
+        name: f_overview-headline
+        label: Overview headline
+        widget: string
+        required: false
+      - hint: ''
+        name: f_showcase-images
+        label: Showcase images
+        widget: list
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_banner-image
+        label: Banner image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_quote
+        label: Quote
+        widget: text
+        required: false
+      - hint: ''
+        name: f_client-name
+        label: Client name
+        widget: string
+        required: false
+      - hint: ''
+        name: f_client-avatar
+        label: Client avatar
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_client-company
+        label: Client company
+        widget: string
+        required: false
+      - hint: ''
+        name: f_our-approach-background
+        label: Our approach background
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Short paragraph
+        name: f_our-approach-body
+        label: Our approach body
+        widget: text
+        required: false
+      - hint: ''
+        name: f_title-what-we-did-1
+        label: Title | What we did (1)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_description-what-we-did-1
+        label: Description | What we did (1)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_title-what-we-did-2
+        label: Title | What we did (2)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_description-what-we-did-2
+        label: Description | What we did (2)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_title-what-we-did-3
+        label: Title | What we did (3)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_description-what-we-did-3
+        label: Description | What we did (3)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_title-what-we-did-4
+        label: Title | What we did (4)
+        widget: string
+        required: false
+      - hint: ''
+        name: f_description-what-we-did-4
+        label: Description | What we did (4)
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: projects
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[projects].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+          - hint: 'Original color: #333'
+            name: color_1
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fafafa'
+            name: color_2
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ccc'
+            name: color_3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #626d86'
+            name: color_4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(136, 158, 168, 0.2)'
+            name: color_5
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #000'
+            name: color_6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #eef0f6'
+            name: color_7
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(10, 16, 29, 0.3)'
+            name: color_8
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(11, 16, 29, 0.2)'
+            name: color_9
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(11, 16, 29, 0.65)'
+            name: color_10
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.09)'
+            name: color_11
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #a3acc2'
+            name: color_12
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 255, 255, 0.2)'
+            name: color_13
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fff'
+            name: color_14
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 86.7%, 0)'
+            name: color_15
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.3)'
+            name: color_16
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0)'
+            name: color_17
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 255, 255, 0.8)'
+            name: color_18
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #d7dfeb'
+            name: color_19
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.2)'
+            name: color_20
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.8)'
+            name: color_21
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(136, 158, 168, 0.05)'
+            name: color_22
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(62, 65, 116, 0.1)'
+            name: color_23
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ff6f44'
+            name: color_24
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(41, 43, 78, 0.07)'
+            name: color_25
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(41, 43, 78, 0.12)'
+            name: color_26
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(192, 204, 209, 0.55)'
+            name: color_27
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 253, 253, 0.4)'
+            name: color_28
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i453974e0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4f453bff
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i46ee4d7f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 59824fb9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 56189e7b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1a5f00be
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 57cd771a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i43849c41
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i7d89615f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i4a57febd
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i6fe29c67
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2132633a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i48a3261e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 57b74b39
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5bf63a51
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5b20fc77
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 61f45ef3
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5c0451d2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i7355607b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+local_backend: true
+publish_mode: editorial_workflow
